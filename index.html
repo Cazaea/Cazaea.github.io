@@ -262,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.cazaea.com/2017/11/25/Hexo搭建博客/">
+    <link itemprop="mainEntityOfPage" href="http://www.cazaea.com/2017/11/25/个人博客搭建/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cazaea">
@@ -281,7 +281,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/25/Hexo搭建博客/" itemprop="url">最新、最全Hexo博客搭建方法</a></h1>
+                <a class="post-title-link" href="/2017/11/25/个人博客搭建/" itemprop="url">最新、最全Hexo博客搭建方法</a></h1>
         
 
         <div class="post-meta">
@@ -354,13 +354,13 @@
 
       
         
-          <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>安装必备的工具软件：<br>具体可参照Hexo官网<a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="noopener">https://hexo.io/zh-cn/docs/index.html</a></p>
+          <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>安装必备的工具软件：<br>具体可参照<a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="noopener">Hexo官网</a></p>
 <ol>
-<li><p>安装Git工具<a href="https://git-scm.com/" target="_blank" rel="noopener">https://git-scm.com/</a>，Node.js<a href="https://nodejs.org/en/" target="_blank" rel="noopener">https://nodejs.org/en/</a></p>
+<li><p>安装<a href="https://git-scm.com/" target="_blank" rel="noopener">Git工具</a>，安装<a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js</a></p>
 </li>
-<li><p>注册GitHub账号<a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a>，注册Coding账号<a href="https://coding.net/" target="_blank" rel="noopener">https://coding.net/</a></p>
+<li><p>注册<a href="https://github.com/" target="_blank" rel="noopener">GitHub账号</a>，注册<a href="https://coding.net/" target="_blank" rel="noopener">Coding账号</a></p>
 </li>
-<li><p>安装写博客工具MarkDownPad2<a href="http://markdownpad.com/" target="_blank" rel="noopener">http://markdownpad.com/</a>（个人选择）</p>
+<li><p>安装写博客工具<a href="http://markdownpad.com/" target="_blank" rel="noopener">MarkDownPad2</a>（个人选择）</p>
 <ul>
 <li>注册邮箱：Soar360@live.com</li>
 <li><p>授权秘钥：<a href="http://cazaea.com/markdownkey.html" title="点击获取" target="_blank" rel="noopener">授权码</a></p>
@@ -370,9 +370,29 @@
 </ul>
 </li>
 </ol>
+<h2 id="建站正式开始"><a href="#建站正式开始" class="headerlink" title="建站正式开始"></a>建站正式开始</h2><p>以上必备应用程序安装完成后(桌面右击打开Git Bash Here)</p>
+<p><img src="https://i.imgur.com/4pqaVRh.png" alt="点击Git Bash Here"></p>
+<p><img src="https://i.imgur.com/Wlsllc5.png" alt="打开后画面"></p>
+<p>输入<code>npm install -g hexo-cli</code>，使用npm安装Hexo，安装成功如下：</p>
+<p><img src="https://i.imgur.com/J5aeujt.png" alt="安装Hexo成功"></p>
+<p>安装成功后执行下面命令<code>hexo -v</code>，信息如下：</p>
+<p><img src="https://i.imgur.com/uWtiiks.png" alt="版本信息"></p>
+<p>接着执行下面命令<code>hexo init Cazaea</code>，初始化自己的博客文件夹，运行后，会在桌面生成一个Cazaea文件夹。</p>
+<ul>
+<li>我这里使用了Cazaea文件夹，你可以随便命名一个自己喜欢的文件夹，当然，你也可以先输入<code>cd d:/</code>，再输入<code>hexo init Cazaea</code>命令，在D盘下生成文件夹Cazaea</li>
+</ul>
+<p><img src="https://i.imgur.com/PY3LNNA.png" alt="初始化成功"></p>
+<p><img src="https://i.imgur.com/uy2n70Z.png" alt="桌面生成文件夹"></p>
+<p>文件夹内容：</p>
+<p><img src="https://i.imgur.com/KaySXLH.png" alt="文件夹内容展示"></p>
+<p>通过执行代码<code>cd Cazaea</code>进入刚刚创建的文件夹，执行<code>hexo s</code>开启本地服务</p>
+<p><img src="https://i.imgur.com/JJKwx23.png" alt="开启本地服务"></p>
+<p>打开浏览器，输入<a href="http://localhost:4000/预览最原始页面" target="_blank" rel="noopener">http://localhost:4000/预览最原始页面</a></p>
+<p><img src="https://i.imgur.com/pqxBavC.png" alt="初始页面"></p>
+<p>此时，本地已没有问题，接下来就是要把它部署到远程服务器了。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/25/Hexo搭建博客/#more" rel="contents">
+            <a class="btn" href="/2017/11/25/个人博客搭建/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
