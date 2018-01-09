@@ -1,2 +1,2 @@
-http://www.cazaea.com/2017/11/25/个人博客搭建/
+http://www.cazaea.com/2017/11/25/Hexo搭建博客/
 http://www.cazaea.com/2017/11/21/SweetAlertDialog/
