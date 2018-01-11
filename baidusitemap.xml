@@ -4,6 +4,32 @@
 
     
   <url>
+    <loc>http://www.cazaea.com/2017/11/25/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2018-01-11T03:01:12.163Z</lastmod>
+    <data>
+        <display>
+        <title>最新、最全Hexo博客搭建方法</title>
+        <pubTime>2017-11-25T03:11:51.043Z</pubTime>
+        
+        <tag>Hexo</tag>
+         
+        <tag>博客</tag>
+         
+        <tag>Sitemap</tag>
+         
+        <tag>Google</tag>
+         
+         
+           
+             
+              <breadCrumb title="博客搭建" url="http://www.cazaea.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.cazaea.com/2017/11/21/SweetAlertDialog/</loc>
     <lastmod>2018-01-11T01:35:50.584Z</lastmod>
     <data>
@@ -23,32 +49,6 @@
            
              
               <breadCrumb title="Android" url="http://www.cazaea.com/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.cazaea.com/2017/11/25/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
-    <lastmod>2018-01-09T03:39:08.740Z</lastmod>
-    <data>
-        <display>
-        <title>最新、最全Hexo博客搭建方法</title>
-        <pubTime>2017-11-25T03:11:51.043Z</pubTime>
-        
-        <tag>Hexo</tag>
-         
-        <tag>博客</tag>
-         
-        <tag>Sitemap</tag>
-         
-        <tag>Google</tag>
-         
-         
-           
-             
-              <breadCrumb title="博客搭建" url="http://www.cazaea.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
           
         </display>
     </data>
