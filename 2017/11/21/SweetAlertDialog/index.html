@@ -12,6 +12,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
 
+<!-- JS库 pace-theme-flash 网络加载进度条 -->
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
 
 
 
@@ -87,7 +104,7 @@
 <meta property="og:site_name" content="Cazaea&#39;s Blog">
 <meta property="og:description" content="前言之前常用这个轮子, 近两年, 原作者不再维护, AS3.0引用报错, 在此声明新版使用方式. 方式一通过我自己封装SweetAlertDialog添加依赖，直接引用参考项目地址:https://github.com/Cazaea/SweetAlertDialog 方式二通过导入Library引用 1.下载作者源码https://github.com/pedant/sweet-alert-dia">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-29T08:54:04.575Z">
+<meta property="og:updated_time" content="2018-01-11T01:35:50.584Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SweetAlertDialog Android Studio3.0 Gradle4.1报错处理">
 <meta name="twitter:description" content="前言之前常用这个轮子, 近两年, 原作者不再维护, AS3.0引用报错, 在此声明新版使用方式. 方式一通过我自己封装SweetAlertDialog添加依赖，直接引用参考项目地址:https://github.com/Cazaea/SweetAlertDialog 方式二通过导入Library引用 1.下载作者源码https://github.com/pedant/sweet-alert-dia">
@@ -451,6 +468,7 @@ dependencies {
     
     
     
+    <!-- 添加文章结束标记 -->
     <div>
       
         <div>
@@ -458,6 +476,42 @@ dependencies {
         <div style="text-align:center;color: #ccc;font-size:14px;">--------------------------本文结束<i class="fa fa-thumbs-o-up"></i>感谢您的阅读--------------------------</div>
     
 </div>
+      
+    </div>
+    
+    <!-- 添加文章许可协议 -->
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2017/11/21/SweetAlertDialog/">SweetAlertDialog Android Studio3.0 Gradle4.1报错处理</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Cazaea 的个人博客">Cazaea</a></p>
+  <p><span>发布时间:</span>2017年11月21日 - 11:11</p>
+  <p><span>最后更新:</span>2018年01月11日 - 09:01</p>
+  <p><span>原始链接:</span><a href="/2017/11/21/SweetAlertDialog/" title="SweetAlertDialog Android Studio3.0 Gradle4.1报错处理">http://www.cazaea.com/2017/11/21/SweetAlertDialog/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.cazaea.com/2017/11/21/SweetAlertDialog/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+	});
+    });  
+</script>
+
       
     </div>
 
@@ -555,6 +609,11 @@ dependencies {
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzEzMC85Njg5"></div>
+    </div>
 
   
 
@@ -902,6 +961,17 @@ dependencies {
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
