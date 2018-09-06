@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cazaea.com/about/index.html</loc>
+    
+    <lastmod>2018-09-06T03:37:51.017Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cazaea.com/2017/11/25/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
     
     <lastmod>2018-09-03T10:11:25.345Z</lastmod>
@@ -33,13 +40,6 @@
     <loc>https://cazaea.com/categories/index.html</loc>
     
     <lastmod>2017-11-27T02:13:55.141Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cazaea.com/about/index.html</loc>
-    
-    <lastmod>2017-11-27T02:13:08.774Z</lastmod>
     
   </url>
   

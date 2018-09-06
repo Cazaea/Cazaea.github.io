@@ -1,19 +1,23 @@
 # 个人博客搭建 #
 
 ## 准备工作 ##
+
 安装必备的工具软件：
-具体可参照Hexo官网[https://hexo.io/zh-cn/docs/index.html](https://hexo.io/zh-cn/docs/index.html)
 
-1. 安装Git工具[https://git-scm.com/](https://git-scm.com/)，Node.js[https://nodejs.org/en/](https://nodejs.org/en/)
+- 具体可参照[Hexo官网](https://hexo.io/zh-cn/docs/index.html)
 
-2. 注册GitHub账号[https://github.com/](https://github.com/)，注册Coding账号[https://coding.net/](https://coding.net/)
+	1. 安装[Git工具](https://git-scm.com/)，安装[Node.js](https://nodejs.org/en/)
 
-3. 安装写博客工具MarkDownPad2[http://markdownpad.com/](http://markdownpad.com/)（个人选择）
+	2. 注册[GitHub账号](https://github.com/)，注册[Coding账号](https://coding.net/)
 
-	- 注册邮箱：Soar360@live.com
-	- 授权秘钥：[授权码](http://cazaea.com/markdownkey.html "点击获取")
+	3. 安装写博客工具[MarkDownPad2](http://markdownpad.com/)（个人选择）
 	
-	- *下载[Awesomium 1.6.6 SDK](http://markdownpad.com/download/awesomium_v1.6.6_sdk_win.exe)解决MarkdownPad2在win10下报HTML 渲染错误(This view has crashed)*
+		- 注册邮箱：Soar360@live.com
+		- 授权秘钥：[授权码](http://cazaea.com/markdownkey.html "点击获取")
+
+		- *下载[Awesomium 1.6.6 SDK](http://markdownpad.com/download/awesomium_v1.6.6_sdk_win.exe)解决MarkdownPad2在win10下报HTML 渲染错误(This view has crashed)*
+
+<!--more-->
 
 ## 建站正式开始 ##
 
@@ -47,13 +51,11 @@
 
 ![开启本地服务](https://i.imgur.com/JJKwx23.png)
 
-打开浏览器，输入http://localhost:4000/预览最原始页面
+打开浏览器，输入 ***http://localhost:4000/*** 预览最原始页面
 
 ![初始页面](https://i.imgur.com/pqxBavC.png)
 
 此时，本地已没有问题，接下来就是要把它部署到远程服务器了。
-
-<!--more-->
 
 ## 建立GitHub Pages ##
 这时候就要用上之前准备的账号了，登录GitHub，选择新建仓库
@@ -142,7 +144,7 @@
     hexo g
 	hexo d
 
-此时会让你输入GitHub的账号和密码，输入后在浏览器中输入 https://Cazaea.github.io/ 应该就可以访问了,如果未显示，稍等一下，再进行访问，GitHub部署需要一点时间。
+此时会让你输入GitHub的账号和密码，输入后在浏览器中输入 ***https://Cazaea.github.io/***  应该就可以访问了,如果未显示，稍等一下，再进行访问，GitHub部署需要一点时间。
 
 ## 配置Coding Pages ##
 为了一丝一毫的响应速度，推荐同时配置Coding Pages，使网站可以国内请求Coding，海外请求GitHub。从此，你的网站不只快了一点点。
@@ -218,10 +220,10 @@ Coding Pages配置与GitHub Pages配置步骤类似，照着同样的步骤就�
 
 关于购买域名，此处不再赘述，说的太多，容易跑题。
 
-之前已经写好了GitHub Pages和Coding Pages服务，只是可以通过http://Cazaea.github.io和http://Cazaea.coding.me访问，跟自己的域名一毛钱关系没有，下面，就开始让他们有关系。
+之前已经写好了GitHub Pages和Coding Pages服务，只是可以通过[https://Cazaea.github.io](https://Cazaea.github.io)和[http://Cazaea.coding.me](http://Cazaea.coding.me)访问，跟自己的域名一毛钱关系没有，下面，就开始让他们有关系。
 
 1. 在文件夹Cazaea下的source文件夹创建文件CNAME，无后缀名。
-2. 打开文件（我用的PS Pad），写入文本（自己的域名，切记，不带http://www，例如：cazaea.com）
+2. 打开文件（我用的PS Pad），写入文本（自己的域名，切记，**不带http://www，例如：cazaea.com**）
 
 ![域名文件](https://i.imgur.com/Hsi65a8.png)
 
@@ -241,7 +243,7 @@ Coding Pages配置与GitHub Pages配置步骤类似，照着同样的步骤就�
 
 由于加入Google，需要翻墙，具体翻墙工具个人选择，推荐Shadowsocks，Lantern
 
-★ 切记：如果使用推荐的下载`[googleff0226f76d5f451b.html, baidu_verify_vHC5EAW09E.html]`形式，请将下载好的文件放进Cazaea\source文件夹，并且编辑.html文件，添加标题，如下：
+★ 切记：如果使用推荐的下载`[googleff0226f76d5f451b.html, baidu_verify_vHC5EAW09E.html]`形式，请将下载好的文件放进Cazaea\source文件夹，并且编辑此.html文件，添加标题，如下：
 
 
 - Google html文件
@@ -258,7 +260,10 @@ Coding Pages配置与GitHub Pages配置步骤类似，照着同样的步骤就�
 		---
 		vHC5EAW09E
 
-★ 传送门参考：[HarleyWang](https://github.com/HarleyWang93/blog/issues/26)的博客
+★ 传送门：
+
+- 参考①:[HarleyWang's Blog](https://github.com/HarleyWang93/blog/issues/26)
+- 参考②:[JI's Blog](http://www.yuan-ji.me/Hexo-%E4%BC%98%E5%8C%96%EF%BC%9A%E6%8F%90%E4%BA%A4sitemap%E5%8F%8A%E8%A7%A3%E5%86%B3%E7%99%BE%E5%BA%A6%E7%88%AC%E8%99%AB%E6%8A%93%E5%8F%96-GitHub-Pages-%E9%97%AE%E9%A2%98/)
 
 ## 配置文件（最关键） ##
 
@@ -377,7 +382,7 @@ Coding Pages配置与GitHub Pages配置步骤类似，照着同样的步骤就�
 	
 - 其次，主题配置文件，同样名为`_config.yml`，位于主题文件夹下，`Cazaea\themes\next`。
 
-		# 第一部分修改
+		# 主题样式修改
     	# Schemes
 		scheme: Mist  # 去掉默认的注释即可切换为Mist主题
 		#scheme: Mist
@@ -394,6 +399,25 @@ Coding Pages配置与GitHub Pages配置步骤类似，照着同样的步骤就�
 		修改主题配置信息，请参照[Zhiho's Blog](https://zhiho.github.io/2015/09/29/hexo-next/)
 
 		整体配置信息，请参照[HarleyWang's Blog](https://github.com/HarleyWang93/blog/issues/26)
+
+★ 个性化设置：
+
+- Next主题个性化：[Moorez](http://shenzekun.cn/hexo%E7%9A%84next%E4%B8%BB%E9%A2%98%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html)
+- 添加音乐：[LeviDing](http://www.dingxuewen.com/2017/03/11/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E4%B8%AA%E6%80%A7%E5%8C%96%E8%AE%BE%E7%BD%AE%E4%B8%89/)
+- 热度调试：[WangHao](https://notes.wanghao.work/2015-10-21-%E4%B8%BANexT%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB%E9%87%8F%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD.html#%E9%85%8D%E7%BD%AELeanCloud)
+
+★ 特殊说明：	
+
+- GitHub Pages对自定义域名支持HTTPS：[Cafeting](https://likfe.com/2018/05/03/github-pages-custom-domains-support-https/)
+	
+		- 切记：在项目主配置文件_config.yml中也要讲域名信息更改为https://yoursite.com
+
+- 域名解析GitHub IP地址更换：
+
+	    - 185.199.108.153
+    	- 185.199.109.153
+    	- 185.199.110.153
+    	- 185.199.111.153
 
 ## 最后 ##
 
