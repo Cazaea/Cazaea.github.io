@@ -133,22 +133,22 @@
 
 
 
-<meta name="description" content="BottomNavigationView最新用法 Android中使用BottomNavigationView早已不稀奇，之前其他博客也都介绍的有用法。 但是，现在网上所出现的使用方法已不符合当今需要 方法一 (com.android.support:design 版本不高于 27.0.3) 网上一堆 方法二 (com">
+<meta name="description" content="BottomNavigationView最新用法 Android中使用BottomNavigationView早已不稀奇，之前其他博客也都介绍的有用法。 但是，现在网上所出现的使用方法已不符合当今需要  方法一 (com.android.support:design 版本不高于 27.0.3) 网上一堆 方法二 (co">
 <meta name="keywords" content="BottomNavigationView,Android Studio V3.2,Gradle4.6,Android Design 28.0.2">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BottomNavigationView最新用法">
 <meta property="og:url" content="https://cazaea.com/2018/09/27/BottomNavigationView最新使用/index.html">
 <meta property="og:site_name" content="Cazaea&#39;s Blog">
-<meta property="og:description" content="BottomNavigationView最新用法 Android中使用BottomNavigationView早已不稀奇，之前其他博客也都介绍的有用法。 但是，现在网上所出现的使用方法已不符合当今需要 方法一 (com.android.support:design 版本不高于 27.0.3) 网上一堆 方法二 (com.android.support:design 版本高于 27.0.3) 网上没">
+<meta property="og:description" content="BottomNavigationView最新用法 Android中使用BottomNavigationView早已不稀奇，之前其他博客也都介绍的有用法。 但是，现在网上所出现的使用方法已不符合当今需要  方法一 (com.android.support:design 版本不高于 27.0.3) 网上一堆 方法二 (com.android.support:design 版本高于 27.0.3) 网上">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/WqWZH09.gif">
 <meta property="og:image" content="https://i.imgur.com/kAhZUbj.jpg">
 <meta property="og:image" content="https://i.imgur.com/5SJl8mM.jpg">
 <meta property="og:image" content="https://i.imgur.com/IHWckaX.jpg">
-<meta property="og:updated_time" content="2018-09-27T09:47:11.491Z">
+<meta property="og:updated_time" content="2018-09-27T09:53:14.174Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BottomNavigationView最新用法">
-<meta name="twitter:description" content="BottomNavigationView最新用法 Android中使用BottomNavigationView早已不稀奇，之前其他博客也都介绍的有用法。 但是，现在网上所出现的使用方法已不符合当今需要 方法一 (com.android.support:design 版本不高于 27.0.3) 网上一堆 方法二 (com.android.support:design 版本高于 27.0.3) 网上没">
+<meta name="twitter:description" content="BottomNavigationView最新用法 Android中使用BottomNavigationView早已不稀奇，之前其他博客也都介绍的有用法。 但是，现在网上所出现的使用方法已不符合当今需要  方法一 (com.android.support:design 版本不高于 27.0.3) 网上一堆 方法二 (com.android.support:design 版本高于 27.0.3) 网上">
 <meta name="twitter:image" content="https://i.imgur.com/WqWZH09.gif">
 
 
@@ -417,7 +417,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,936
+                  1,990
                 </span>
               
 
@@ -433,7 +433,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  10
+                  11
                 </span>
               
             </div>
@@ -456,14 +456,25 @@
       
         <h1 id="BottomNavigationView最新用法"><a href="#BottomNavigationView最新用法" class="headerlink" title="BottomNavigationView最新用法"></a>BottomNavigationView最新用法</h1><ul>
 <li>Android中使用BottomNavigationView早已不稀奇，之前其他博客也都介绍的有用法。</li>
-<li>但是，现在网上所出现的使用方法已不符合当今需要<ul>
+<li><p>但是，现在网上所出现的使用方法已不符合当今需要</p>
+<ul>
 <li><strong><em>方法一 (com.android.support:design 版本不高于 27.0.3)</em></strong> 网上一堆</li>
 <li><strong><em>方法二 (com.android.support:design 版本高于 27.0.3)</em></strong> 网上没有任何说明</li>
 </ul>
 </li>
-<li>故，在此特别介绍一下<strong><em>方法二</em></strong> 以供参考</li>
+<li><p>故，在此特别介绍一下<strong><em>方法二</em></strong> 以供参考</p>
+</li>
 </ul>
 <h2 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h2><ul>
+<li><p>此方法仅针对 <strong>Gradle</strong> 文件引用 <strong>com.android.support:design</strong> 版本不高于 <strong>27.0.3</strong></p>
+<ul>
+<li>⓵ 对于 <strong><em>Item&gt;3</em></strong> 时的平移及缩放动画的处理</li>
+<li>⓶ 对于 <strong><em>Item</em></strong> 缩放动画（选中放大图标/文字）</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+<ul>
 <li><p>对于 <strong><em>Item&gt;3</em></strong> 时的平移及缩放动画的处理</p>
 <pre><code>@SuppressLint(&quot;RestrictedApi&quot;)
 public static void disableShiftMode(BottomNavigationView navigationView) {
