@@ -133,22 +133,22 @@
 
 
 
-<meta name="description" content="BottomNavigationView最新用法 Android中使用BottomNavigationView早已不稀奇，之前其他博客也都介绍的有用法。不过，现在网上所出现的使用方法仅限于方法一(com.android.support:design版本不高于27.0.3)，对于方法二(com.android.suppo">
+<meta name="description" content="BottomNavigationView最新用法 Android中使用BottomNavigationView早已不稀奇，之前其他博客也都介绍的有用法。 但是，现在网上所出现的使用方法已不符合当今需要 方法一 (com.android.support:design 版本不高于 27.0.3) 网上一堆 方法二 (com">
 <meta name="keywords" content="BottomNavigationView,Android Studio V3.2,Gradle4.6,Android Design 28.0.2">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BottomNavigationView最新用法">
 <meta property="og:url" content="https://cazaea.com/2018/09/27/BottomNavigationView最新使用/index.html">
 <meta property="og:site_name" content="Cazaea&#39;s Blog">
-<meta property="og:description" content="BottomNavigationView最新用法 Android中使用BottomNavigationView早已不稀奇，之前其他博客也都介绍的有用法。不过，现在网上所出现的使用方法仅限于方法一(com.android.support:design版本不高于27.0.3)，对于方法二(com.android.support:design版本高于27.0.3)并没有太多说明。 故，在此特别介绍一下方">
+<meta property="og:description" content="BottomNavigationView最新用法 Android中使用BottomNavigationView早已不稀奇，之前其他博客也都介绍的有用法。 但是，现在网上所出现的使用方法已不符合当今需要 方法一 (com.android.support:design 版本不高于 27.0.3) 网上一堆 方法二 (com.android.support:design 版本高于 27.0.3) 网上没">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/WqWZH09.gif">
 <meta property="og:image" content="https://i.imgur.com/kAhZUbj.jpg">
 <meta property="og:image" content="https://i.imgur.com/5SJl8mM.jpg">
 <meta property="og:image" content="https://i.imgur.com/IHWckaX.jpg">
-<meta property="og:updated_time" content="2018-09-27T09:28:45.853Z">
+<meta property="og:updated_time" content="2018-09-27T09:41:46.720Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BottomNavigationView最新用法">
-<meta name="twitter:description" content="BottomNavigationView最新用法 Android中使用BottomNavigationView早已不稀奇，之前其他博客也都介绍的有用法。不过，现在网上所出现的使用方法仅限于方法一(com.android.support:design版本不高于27.0.3)，对于方法二(com.android.support:design版本高于27.0.3)并没有太多说明。 故，在此特别介绍一下方">
+<meta name="twitter:description" content="BottomNavigationView最新用法 Android中使用BottomNavigationView早已不稀奇，之前其他博客也都介绍的有用法。 但是，现在网上所出现的使用方法已不符合当今需要 方法一 (com.android.support:design 版本不高于 27.0.3) 网上一堆 方法二 (com.android.support:design 版本高于 27.0.3) 网上没">
 <meta name="twitter:image" content="https://i.imgur.com/WqWZH09.gif">
 
 
@@ -417,7 +417,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,903
+                  1,934
                 </span>
               
 
@@ -455,8 +455,13 @@
 
       
         <h1 id="BottomNavigationView最新用法"><a href="#BottomNavigationView最新用法" class="headerlink" title="BottomNavigationView最新用法"></a>BottomNavigationView最新用法</h1><ul>
-<li>Android中使用BottomNavigationView早已不稀奇，之前其他博客也都介绍的有用法。不过，现在网上所出现的使用方法仅限于<strong><em>方法一(com.android.support:design版本不高于27.0.3)</em></strong>，对于<strong><em>方法二(com.android.support:design版本高于27.0.3)</em></strong>并没有太多说明。</li>
-<li>故，在此特别介绍一下<strong><em>方法二</em></strong></li>
+<li>Android中使用BottomNavigationView早已不稀奇，之前其他博客也都介绍的有用法。</li>
+<li>但是，现在网上所出现的使用方法已不符合当今需要<ul>
+<li><strong><em>方法一 (com.android.support:design 版本不高于 27.0.3)</em></strong> 网上一堆</li>
+<li><strong><em>方法二 (com.android.support:design 版本高于 27.0.3)</em></strong> 网上没有任何说明</li>
+</ul>
+</li>
+<li>故，在此特别介绍一下<strong><em>方法二</em></strong> 以供参考</li>
 </ul>
 <h2 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h2><ul>
 <li><p>对于 <strong><em>Item&gt;3</em></strong> 时的平移及缩放动画的处理</p>
@@ -523,10 +528,11 @@ public static void disableItemScale(BottomNavigationView view) {
 
 }
 </code></pre></li>
-<li><p>然后在调用的地方</p>
+<li><p>然后初始化后调用</p>
 <pre><code>// 默认count&gt;3时选中效果会影响ViewPager的滑动切换效果，故利用反射去掉
 BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-BottomNavigationViewHelper.disableItemScale(bottomNavigationView);
+// 本人没有关闭图标缩放动能，该方法不用
+// BottomNavigationViewHelper.disableItemScale(bottomNavigationView);
 </code></pre></li>
 <li><p>布局文件</p>
 <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
@@ -596,7 +602,7 @@ BottomNavigationViewHelper.disableItemScale(bottomNavigationView);
 </ul>
 <p><img src="https://i.imgur.com/WqWZH09.gif" alt=""></p>
 <hr>
-<h3 id="☠巴特！在com-android-support-design版本高于27-0-3之后，这个方法失效，这也是我接下来着重介绍方法二的原因"><a href="#☠巴特！在com-android-support-design版本高于27-0-3之后，这个方法失效，这也是我接下来着重介绍方法二的原因" class="headerlink" title="☠巴特！在com.android.support:design版本高于27.0.3之后，这个方法失效，这也是我接下来着重介绍方法二的原因"></a><em>☠巴特！在com.android.support:design版本高于27.0.3之后，这个方法失效，这也是我接下来着重介绍<strong>方法二</strong>的原因</em></h3><h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><ul>
+<h3 id="☠-But！-在-com-android-support-design-版本高于-27-0-3-之后，这个方法失效，这也是我接下来着重介绍-方法二-的原因"><a href="#☠-But！-在-com-android-support-design-版本高于-27-0-3-之后，这个方法失效，这也是我接下来着重介绍-方法二-的原因" class="headerlink" title="☠ But！ 在 com.android.support:design 版本高于 27.0.3 之后，这个方法失效，这也是我接下来着重介绍 方法二 的原因"></a><em>☠ But！ 在 com.android.support:design 版本高于 27.0.3 之后，这个方法失效，这也是我接下来着重介绍 <strong>方法二</strong> 的原因</em></h3><h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><ul>
 <li>此方法仅针对Gradle文件引用com.android.support:design版本高于27.0.3</li>
 </ul>
 <h3 id="首先看一下源码"><a href="#首先看一下源码" class="headerlink" title="首先看一下源码"></a>首先看一下源码</h3><ul>
@@ -1224,7 +1230,7 @@ BottomNavigationViewHelper.disableItemScale(bottomNavigationView);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BottomNavigationView最新用法"><span class="nav-number">1.</span> <span class="nav-text">BottomNavigationView最新用法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法一："><span class="nav-number">1.1.</span> <span class="nav-text">方法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#☠巴特！在com-android-support-design版本高于27-0-3之后，这个方法失效，这也是我接下来着重介绍方法二的原因"><span class="nav-number">1.1.1.</span> <span class="nav-text">☠巴特！在com.android.support:design版本高于27.0.3之后，这个方法失效，这也是我接下来着重介绍方法二的原因</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法二"><span class="nav-number">1.2.</span> <span class="nav-text">方法二</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先看一下源码"><span class="nav-number">1.2.1.</span> <span class="nav-text">首先看一下源码</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BottomNavigationView最新用法"><span class="nav-number">1.</span> <span class="nav-text">BottomNavigationView最新用法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法一："><span class="nav-number">1.1.</span> <span class="nav-text">方法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#☠-But！-在-com-android-support-design-版本高于-27-0-3-之后，这个方法失效，这也是我接下来着重介绍-方法二-的原因"><span class="nav-number">1.1.1.</span> <span class="nav-text">☠ But！ 在 com.android.support:design 版本高于 27.0.3 之后，这个方法失效，这也是我接下来着重介绍 方法二 的原因</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法二"><span class="nav-number">1.2.</span> <span class="nav-text">方法二</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先看一下源码"><span class="nav-number">1.2.1.</span> <span class="nav-text">首先看一下源码</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
