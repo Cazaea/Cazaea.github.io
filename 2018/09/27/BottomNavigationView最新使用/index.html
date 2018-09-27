@@ -145,7 +145,7 @@
 <meta property="og:image" content="https://i.imgur.com/kAhZUbj.jpg">
 <meta property="og:image" content="https://i.imgur.com/5SJl8mM.jpg">
 <meta property="og:image" content="https://i.imgur.com/IHWckaX.jpg">
-<meta property="og:updated_time" content="2018-09-27T09:41:46.720Z">
+<meta property="og:updated_time" content="2018-09-27T09:47:11.491Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BottomNavigationView最新用法">
 <meta name="twitter:description" content="BottomNavigationView最新用法 Android中使用BottomNavigationView早已不稀奇，之前其他博客也都介绍的有用法。 但是，现在网上所出现的使用方法已不符合当今需要 方法一 (com.android.support:design 版本不高于 27.0.3) 网上一堆 方法二 (com.android.support:design 版本高于 27.0.3) 网上没">
@@ -417,7 +417,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,934
+                  1,936
                 </span>
               
 
@@ -602,13 +602,14 @@ BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 </ul>
 <p><img src="https://i.imgur.com/WqWZH09.gif" alt=""></p>
 <hr>
-<h3 id="☠-But！-在-com-android-support-design-版本高于-27-0-3-之后，这个方法失效，这也是我接下来着重介绍-方法二-的原因"><a href="#☠-But！-在-com-android-support-design-版本高于-27-0-3-之后，这个方法失效，这也是我接下来着重介绍-方法二-的原因" class="headerlink" title="☠ But！ 在 com.android.support:design 版本高于 27.0.3 之后，这个方法失效，这也是我接下来着重介绍 方法二 的原因"></a><em>☠ But！ 在 com.android.support:design 版本高于 27.0.3 之后，这个方法失效，这也是我接下来着重介绍 <strong>方法二</strong> 的原因</em></h3><h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><ul>
-<li>此方法仅针对Gradle文件引用com.android.support:design版本高于27.0.3</li>
+<h3 id="☠-But！-在-com-android-support-design-版本高于-27-0-3-之后，这个方法失效，这也是我接下来着重介绍-方法二-的原因"><a href="#☠-But！-在-com-android-support-design-版本高于-27-0-3-之后，这个方法失效，这也是我接下来着重介绍-方法二-的原因" class="headerlink" title="☠ But！ 在 com.android.support:design 版本高于 27.0.3 之后，这个方法失效，这也是我接下来着重介绍 方法二 的原因"></a>☠ But！ 在 <strong>com.android.support:design</strong> 版本高于 <strong>27.0.3</strong> 之后，这个方法失效，这也是我接下来着重介绍 <strong>方法二</strong> 的原因</h3><hr>
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><ul>
+<li>此方法仅针对 <strong>Gradle</strong> 文件引用 <strong>com.android.support:design</strong> 版本高于 <strong>27.0.3</strong></li>
 </ul>
 <h3 id="首先看一下源码"><a href="#首先看一下源码" class="headerlink" title="首先看一下源码"></a>首先看一下源码</h3><ul>
 <li>当 <strong>com.android.support:design &lt;= 27.0.3</strong> 时</li>
 </ul>
-<pre><code>- BottomNavigationMenuView中源码
+<pre><code>- **BottomNavigationMenuView** 中源码
 
         public class BottomNavigationMenuView extends ViewGroup implements MenuView {
 
@@ -630,7 +631,7 @@ BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
             } 
         }    
 
-- BottomNavigationItemView中源码
+- **BottomNavigationItemView** 中源码
 
         public class BottomNavigationItemView extends FrameLayout implements MenuView.ItemView {
             private final int mShiftAmount;
@@ -716,7 +717,7 @@ BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 </code></pre><ul>
 <li><p>当 <strong>com.android.support:design &gt; 27.0.3</strong> 时</p>
 <ul>
-<li>BottomNavigationMenuView中源码</li>
+<li><strong>BottomNavigationMenuView</strong> 中源码</li>
 </ul>
 </li>
 </ul>
@@ -784,7 +785,7 @@ BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
                 ｝
             ｝    
 
-- **BottomNavigationItemView 中对 labelVisibilityMode 也对应做了处理**
+- **BottomNavigationItemView** 中对 **labelVisibilityMode** 也做了对应处理
 
         //...
 
