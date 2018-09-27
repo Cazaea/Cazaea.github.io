@@ -413,7 +413,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,565
+                  1,903
                 </span>
               
 
@@ -429,7 +429,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  8
+                  10
                 </span>
               
             </div>
@@ -592,114 +592,227 @@ BottomNavigationViewHelper.disableItemScale(bottomNavigationView);
 <ul>
 <li>效果如图：</li>
 </ul>
-<p><img src="https://s27.aconvert.com/convert/p3r68-cdx67/ok1jj-9cf5k.gif" alt=""></p>
+<p><img src="https://i.imgur.com/WqWZH09.gif" alt=""></p>
 <hr>
 <h3 id="☠巴特！在com-android-support-design版本高于27-0-3之后，这个方法失效，这也是我接下来着重介绍方法二的原因"><a href="#☠巴特！在com-android-support-design版本高于27-0-3之后，这个方法失效，这也是我接下来着重介绍方法二的原因" class="headerlink" title="☠巴特！在com.android.support:design版本高于27.0.3之后，这个方法失效，这也是我接下来着重介绍方法二的原因"></a><em>☠巴特！在com.android.support:design版本高于27.0.3之后，这个方法失效，这也是我接下来着重介绍<strong>方法二</strong>的原因</em></h3><h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><ul>
 <li>此方法仅针对Gradle文件引用com.android.support:design版本高于27.0.3</li>
 </ul>
 <h3 id="首先看一下源码"><a href="#首先看一下源码" class="headerlink" title="首先看一下源码"></a>首先看一下源码</h3><ul>
-<li><strong>com.android.support:design&lt;=27.0.3</strong></li>
+<li>当 <strong>com.android.support:design &lt;= 27.0.3</strong> 时</li>
 </ul>
-<pre><code>public class BottomNavigationMenuView extends ViewGroup implements MenuView {
+<pre><code>- BottomNavigationMenuView中源码
 
-    // ...
-    // 就是这个属性
-    private boolean mShiftingMode = true;
-    // ...
+        public class BottomNavigationMenuView extends ViewGroup implements MenuView {
 
-    public void buildMenuView() {
-        //...
-        mButtons = new BottomNavigationItemView[mMenu.size()];
-        // 为什么item大于3的时候，会有缩放
-        mShiftingMode = mMenu.size() &gt; 3;
-        for (int i = 0; i &lt; mMenu.size(); i++) {
-            BottomNavigationItemView child = getNewItem();
-            child.setShiftingMode(mShiftingMode);
-            //...            
+            // ...
+            // 就是这个属性
+            private boolean mShiftingMode = true;
+            // ...
+
+            public void buildMenuView() {
+                //...
+                mButtons = new BottomNavigationItemView[mMenu.size()];
+                // 为什么item大于3的时候，会有缩放
+                mShiftingMode = mMenu.size() &gt; 3;
+                for (int i = 0; i &lt; mMenu.size(); i++) {
+                    BottomNavigationItemView child = getNewItem();
+                    child.setShiftingMode(mShiftingMode);
+                    //...            
+                }
+            } 
+        }    
+
+- BottomNavigationItemView中源码
+
+        public class BottomNavigationItemView extends FrameLayout implements MenuView.ItemView {
+            private final int mShiftAmount;
+            private final float mScaleUpFactor;
+            private final float mScaleDownFactor;
+
+            private boolean mShiftingMode;
+            public BottomNavigationItemView(Context context, AttributeSet attrs, int defStyleAttr) {
+                super(context, attrs, defStyleAttr);
+                final Resources res = getResources();
+                int inactiveLabelSize = res.getDimensionPixelSize(R.dimen.design_bottom_navigation_text_size);
+                  int activeLabelSize = res.getDimensionPixelSize( R.dimen.design_bottom_navigation_active_text_size);
+                mDefaultMargin = res.getDimensionPixelSize(R.dimen.design_bottom_navigation_margin);
+                mShiftAmount = inactiveLabelSize - activeLabelSize;
+                mScaleUpFactor = 1f * activeLabelSize / inactiveLabelSize;
+                mScaleDownFactor = 1f * inactiveLabelSize / activeLabelSize;
+
+                LayoutInflater.from(context).inflate(R.layout.design_bottom_navigation_item, this, true);
+                setBackgroundResource(R.drawable.design_bottom_navigation_item_background);
+                mIcon = findViewById(R.id.icon);
+                mSmallLabel = findViewById(R.id.smallLabel);
+                mLargeLabel = findViewById(R.id.largeLabel);
+            }
+
+            @Override
+            public void setChecked(boolean checked) {
+
+                if (mShiftingMode) {
+                    if (checked) {
+                        LayoutParams iconParams = (LayoutParams) mIcon.getLayoutParams();
+                        iconParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
+                        iconParams.topMargin = mDefaultMargin;
+                        mIcon.setLayoutParams(iconParams);
+                        mLargeLabel.setVisibility(VISIBLE);
+                        mLargeLabel.setScaleX(1f);
+                        mLargeLabel.setScaleY(1f);
+                    } else {
+                        LayoutParams iconParams = (LayoutParams) mIcon.getLayoutParams();
+                        iconParams.gravity = Gravity.CENTER;
+                        iconParams.topMargin = mDefaultMargin;
+                        mIcon.setLayoutParams(iconParams);
+                        //ShiftingMode模式下，不选中文字隐藏
+                        mLargeLabel.setVisibility(INVISIBLE);
+                        mLargeLabel.setScaleX(0.5f);
+                        mLargeLabel.setScaleY(0.5f);
+                    }
+                    mSmallLabel.setVisibility(INVISIBLE);
+                } else {
+
+                    if (checked) {
+                        LayoutParams iconParams = (LayoutParams) mIcon.getLayoutParams();
+                        iconParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
+                        //通过设置mShiftAmount 的大小 控制图片margin，进而控制图片大小
+                        iconParams.topMargin = mDefaultMargin + mShiftAmount;
+                        mIcon.setLayoutParams(iconParams);
+                        //通过设置mLargeLabel和mSmallLabel的显示与隐藏控制文本大小
+                        //如果把他俩TextSize设置为一样。则就不会变化
+                        mLargeLabel.setVisibility(VISIBLE);
+                        mSmallLabel.setVisibility(INVISIBLE);
+
+                        mLargeLabel.setScaleX(1f);
+                        mLargeLabel.setScaleY(1f);
+                        mSmallLabel.setScaleX(mScaleUpFactor);
+                        mSmallLabel.setScaleY(mScaleUpFactor);
+                    } else {
+                        LayoutParams iconParams = (LayoutParams) mIcon.getLayoutParams();
+                        iconParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
+                        iconParams.topMargin = mDefaultMargin;
+                        mIcon.setLayoutParams(iconParams);
+                        mLargeLabel.setVisibility(INVISIBLE);
+                        mSmallLabel.setVisibility(VISIBLE);
+
+                        mLargeLabel.setScaleX(mScaleDownFactor);
+                        mLargeLabel.setScaleY(mScaleDownFactor);
+                        mSmallLabel.setScaleX(1f);
+                        mSmallLabel.setScaleY(1f);
+                    }
+                }
+
+                refreshDrawableState();
+            } 
         }
-    } 
-}
 </code></pre><ul>
-<li><p><strong>com.android.support:design&gt;27.0.3</strong></p>
-<pre><code>public class BottomNavigationMenuView extends ViewGroup implements MenuView {
-
-    // ...
-    // mShiftingMode属性消失，取而代之的是这两个属性
-
-    // itemHorizontalTranslationEnabled:是否启用水平移动动画（如果允许图标会有少许水平移动）
-       private boolean itemHorizontalTranslationEnabled;
-    // labelVisibilityMode:标签显示模式（labeled:显示标签，auto:根据标签个数判断是否显示，selected:选中的显示，unlabeled:不显示）
-    private int labelVisibilityMode;
-    // ...
-
-    public void buildMenuView() {
-        //...
-        if (this.menu.size() == 0) {
-            this.selectedItemId = 0;
-            this.selectedItemPosition = 0;
-            this.buttons = null;
-        } else {
-            this.buttons = new BottomNavigationItemView[this.menu.size()];
-            boolean shifting = this.isShifting(this.labelVisibilityMode, this.menu.getVisibleItems().size());
-
-            for(i = 0; i &lt; this.menu.size(); ++i) {
-                this.presenter.setUpdateSuspended(true);
-                this.menu.getItem(i).setCheckable(true);
-                this.presenter.setUpdateSuspended(false);
-                BottomNavigationItemView child = this.getNewItem();
-                //...            
-            }
-    } 
-
-    //...
-    private boolean isShifting(int labelVisibilityMode, int childCount) {
-        // 这个地方很奇怪，看了BottomNavigationItem中对labelVisibilityMode做了对应处理才明白
-        // 默认labelVisibilityMode为&quot;auto&quot;,也就是&quot;-1&quot;,如果Item&gt;3默认开启水平动画，否则关闭水平动画。
-        // 如果labelVisibilityMode用户主动设置了值，且不为&quot;auto&quot;，只在&quot;selected&quot;模式下开启动画
-        // &quot;labeled&quot;和&quot;unlabeled&quot;两种模式都不开启动画
-        return labelVisibilityMode == -1 ? childCount &gt; 3 : labelVisibilityMode == 0;
-    }
-}
-</code></pre></li>
-</ul>
+<li><p>当 <strong>com.android.support:design &gt; 27.0.3</strong> 时</p>
 <ul>
-<li><p><strong><em>要想彻底关闭水平滑动动画，前提还要同时满足itemHorizontalTranslationEnabled=false</em></strong></p>
-<pre><code>protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int width = MeasureSpec.getSize(widthMeasureSpec);
-        int visibleCount = this.menu.getVisibleItems().size();
-        int totalCount = this.getChildCount();
-        int heightSpec = MeasureSpec.makeMeasureSpec(this.itemHeight, 1073741824);
-        int totalWidth;
-        int i;
-        int extra;
-        int i;
-        if (this.isShifting(this.labelVisibilityMode, visibleCount) &amp;&amp; this.itemHorizontalTranslationEnabled) {
-            View activeChild = this.getChildAt(this.selectedItemPosition);
-            i = this.activeItemMinWidth;
-            if (activeChild.getVisibility() != 8) {
-                activeChild.measure(MeasureSpec.makeMeasureSpec(this.activeItemMaxWidth, -2147483648), heightSpec);
-                i = Math.max(i, activeChild.getMeasuredWidth());
-            }
+<li>BottomNavigationMenuView中源码</li>
+</ul>
+</li>
+</ul>
+<pre><code>        public class BottomNavigationMenuView extends ViewGroup implements MenuView {
+
+            // ...
+            // mShiftingMode属性消失，取而代之的是这两个属性
+
+            // itemHorizontalTranslationEnabled:是否启用水平移动动画（如果允许图标会有少许水平移动）
+               private boolean itemHorizontalTranslationEnabled;
+            // labelVisibilityMode:标签显示模式（labeled:显示标签，auto:根据标签个数判断是否显示，selected:选中的显示，unlabeled:不显示）
+            private int labelVisibilityMode;
+            // ...
+
+            public void buildMenuView() {
+                //...
+                if (this.menu.size() == 0) {
+                    this.selectedItemId = 0;
+                    this.selectedItemPosition = 0;
+                    this.buttons = null;
+                } else {
+                    this.buttons = new BottomNavigationItemView[this.menu.size()];
+                    boolean shifting = this.isShifting(this.labelVisibilityMode, this.menu.getVisibleItems().size());
+
+                    for(i = 0; i &lt; this.menu.size(); ++i) {
+                        this.presenter.setUpdateSuspended(true);
+                        this.menu.getItem(i).setCheckable(true);
+                        this.presenter.setUpdateSuspended(false);
+                        BottomNavigationItemView child = this.getNewItem();
+                        //...            
+                    }
+            } 
+
             //...
-        ｝
-｝
-</code></pre></li>
-<li><p><strong>BottomNavigationItemView中对labelVisibilityMode做了对应处理</strong></p>
-<pre><code>//...
+            private boolean isShifting(int labelVisibilityMode, int childCount) {
+                // 这个地方很奇怪，看了BottomNavigationItem中对labelVisibilityMode做了对应处理才明白
+                // 默认labelVisibilityMode为&quot;auto&quot;,也就是&quot;-1&quot;,如果Item&gt;3默认开启水平动画，否则关闭水平动画。
+                // 如果labelVisibilityMode用户主动设置了值，且不为&quot;auto&quot;，只在&quot;selected&quot;模式下开启动画
+                // &quot;labeled&quot;和&quot;unlabeled&quot;两种模式都不开启动画
+                return labelVisibilityMode == -1 ? childCount &gt; 3 : labelVisibilityMode == 0;
+            }
+        }
 
-// labelVisibilityMode=&quot;auto&quot;时，值为-1
-// labelVisibilityMode=&quot;selected&quot;时，值为0
-// labelVisibilityMode=&quot;labeled&quot;时，值为1
-// labelVisibilityMode=&quot;unlabeled&quot;时，值为2
 
-public void setChecked(boolean checked) {
-        this.largeLabel.setPivotX((float)(this.largeLabel.getWidth() / 2));
-        this.largeLabel.setPivotY((float)this.largeLabel.getBaseline());
-        this.smallLabel.setPivotX((float)(this.smallLabel.getWidth() / 2));
-        this.smallLabel.setPivotY((float)this.smallLabel.getBaseline());
-        switch(this.labelVisibilityMode) {
-            case -1:
-                if (this.isShifting) {
+    - 要想彻底关闭水平滑动动画，前提还要同时满足 **itemHorizontalTranslationEnabled = false** 
+
+            protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+                int width = MeasureSpec.getSize(widthMeasureSpec);
+                int visibleCount = this.menu.getVisibleItems().size();
+                int totalCount = this.getChildCount();
+                int heightSpec = MeasureSpec.makeMeasureSpec(this.itemHeight, 1073741824);
+                int totalWidth;
+                int i;
+                int extra;
+                int i;
+                // 两个条件都不满足才能禁止动画
+                if (this.isShifting(this.labelVisibilityMode, visibleCount) &amp;&amp; this.itemHorizontalTranslationEnabled) {
+                    View activeChild = this.getChildAt(this.selectedItemPosition);
+                    i = this.activeItemMinWidth;
+                    if (activeChild.getVisibility() != 8) {
+                        activeChild.measure(MeasureSpec.makeMeasureSpec(this.activeItemMaxWidth, -2147483648), heightSpec);
+                        i = Math.max(i, activeChild.getMeasuredWidth());
+                    }
+                    //...
+                ｝
+            ｝    
+
+- **BottomNavigationItemView 中对 labelVisibilityMode 也对应做了处理**
+
+        //...
+
+        // labelVisibilityMode=&quot;auto&quot;时，值为-1
+        // labelVisibilityMode=&quot;selected&quot;时，值为0
+        // labelVisibilityMode=&quot;labeled&quot;时，值为1
+        // labelVisibilityMode=&quot;unlabeled&quot;时，值为2
+
+        public void setChecked(boolean checked) {
+            this.largeLabel.setPivotX((float)(this.largeLabel.getWidth() / 2));
+            this.largeLabel.setPivotY((float)this.largeLabel.getBaseline());
+            this.smallLabel.setPivotX((float)(this.smallLabel.getWidth() / 2));
+            this.smallLabel.setPivotY((float)this.smallLabel.getBaseline());
+            switch(this.labelVisibilityMode) {
+                case -1:
+                    if (this.isShifting) {
+                        if (checked) {
+                            this.setViewLayoutParams(this.icon, this.defaultMargin, 49);
+                            this.setViewValues(this.largeLabel, 1.0F, 1.0F, 0);
+                        } else {
+                            this.setViewLayoutParams(this.icon, this.defaultMargin, 17);
+                            this.setViewValues(this.largeLabel, 0.5F, 0.5F, 4);
+                        }
+
+                        this.smallLabel.setVisibility(4);
+                    } else if (checked) {
+                        this.setViewLayoutParams(this.icon, (int)((float)this.defaultMargin + this.shiftAmount), 49);
+                        this.setViewValues(this.largeLabel, 1.0F, 1.0F, 0);
+                        this.setViewValues(this.smallLabel, this.scaleUpFactor, this.scaleUpFactor, 4);
+                    } else {
+                        this.setViewLayoutParams(this.icon, this.defaultMargin, 49);
+                        this.setViewValues(this.largeLabel, this.scaleDownFactor, this.scaleDownFactor, 4);
+                        this.setViewValues(this.smallLabel, 1.0F, 1.0F, 0);
+                    }
+                    break;
+                case 0:
                     if (checked) {
                         this.setViewLayoutParams(this.icon, this.defaultMargin, 49);
                         this.setViewValues(this.largeLabel, 1.0F, 1.0F, 0);
@@ -709,52 +822,31 @@ public void setChecked(boolean checked) {
                     }
 
                     this.smallLabel.setVisibility(4);
-                } else if (checked) {
-                    this.setViewLayoutParams(this.icon, (int)((float)this.defaultMargin + this.shiftAmount), 49);
-                    this.setViewValues(this.largeLabel, 1.0F, 1.0F, 0);
-                    this.setViewValues(this.smallLabel, this.scaleUpFactor, this.scaleUpFactor, 4);
-                } else {
-                    this.setViewLayoutParams(this.icon, this.defaultMargin, 49);
-                    this.setViewValues(this.largeLabel, this.scaleDownFactor, this.scaleDownFactor, 4);
-                    this.setViewValues(this.smallLabel, 1.0F, 1.0F, 0);
-                }
-                break;
-            case 0:
-                if (checked) {
-                    this.setViewLayoutParams(this.icon, this.defaultMargin, 49);
-                    this.setViewValues(this.largeLabel, 1.0F, 1.0F, 0);
-                } else {
+                    break;
+                case 1:
+                    if (checked) {
+                        this.setViewLayoutParams(this.icon, (int)((float)this.defaultMargin + this.shiftAmount), 49);
+                        this.setViewValues(this.largeLabel, 1.0F, 1.0F, 0);
+                        this.setViewValues(this.smallLabel, this.scaleUpFactor, this.scaleUpFactor, 4);
+                    } else {
+                        this.setViewLayoutParams(this.icon, this.defaultMargin, 49);
+                        this.setViewValues(this.largeLabel, this.scaleDownFactor, this.scaleDownFactor, 4);
+                        this.setViewValues(this.smallLabel, 1.0F, 1.0F, 0);
+                    }
+                    break;
+                case 2:
                     this.setViewLayoutParams(this.icon, this.defaultMargin, 17);
-                    this.setViewValues(this.largeLabel, 0.5F, 0.5F, 4);
-                }
+                    this.largeLabel.setVisibility(8);
+                    this.smallLabel.setVisibility(8);
+            }
 
-                this.smallLabel.setVisibility(4);
-                break;
-            case 1:
-                if (checked) {
-                    this.setViewLayoutParams(this.icon, (int)((float)this.defaultMargin + this.shiftAmount), 49);
-                    this.setViewValues(this.largeLabel, 1.0F, 1.0F, 0);
-                    this.setViewValues(this.smallLabel, this.scaleUpFactor, this.scaleUpFactor, 4);
-                } else {
-                    this.setViewLayoutParams(this.icon, this.defaultMargin, 49);
-                    this.setViewValues(this.largeLabel, this.scaleDownFactor, this.scaleDownFactor, 4);
-                    this.setViewValues(this.smallLabel, 1.0F, 1.0F, 0);
-                }
-                break;
-            case 2:
-                this.setViewLayoutParams(this.icon, this.defaultMargin, 17);
-                this.largeLabel.setVisibility(8);
-                this.smallLabel.setVisibility(8);
+                this.refreshDrawableState();
+                this.setSelected(checked);
         }
-
-            this.refreshDrawableState();
-            this.setSelected(checked);
-    }
-    //...
-</code></pre></li>
-<li><p><strong>最终，在新版的Android Design中使用BottomNavigationView</strong></p>
+        //...
+</code></pre><ul>
+<li><p>最终，在新版的 <strong>Android Design</strong> 中使用 <strong>BottomNavigationView</strong> 只用在布局文件中添加两个属性就可以达到上图中的效果</p>
 <ul>
-<li>只用在布局文件中设置以下两个属性就可以达到上图中的效果</li>
 <li>app:itemHorizontalTranslationEnabled=”false”</li>
 <li><p>app:labelVisibilityMode=”labeled”</p>
 <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
