@@ -145,7 +145,7 @@
 <meta property="og:image" content="https://i.imgur.com/kAhZUbj.jpg">
 <meta property="og:image" content="https://i.imgur.com/5SJl8mM.jpg">
 <meta property="og:image" content="https://i.imgur.com/IHWckaX.jpg">
-<meta property="og:updated_time" content="2018-09-28T05:59:24.449Z">
+<meta property="og:updated_time" content="2018-09-28T06:09:41.219Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BottomNavigationView最新用法">
 <meta name="twitter:description" content="BottomNavigationView最新用法 Android中使用BottomNavigationView早已不稀奇，之前其他博客也都介绍的有用法。 但是，现在网上所出现的使用方法已不符合当今需要  方法一 (com.android.support:design 版本不高于 27.0.3) 网上一堆 方法二 (com.android.support:design 版本高于 27.0.3) 网上">
@@ -770,102 +770,99 @@ BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
 }
 </code></pre></li>
-</ul>
-</li>
-</ul>
-<pre><code>- 要想彻底关闭水平滑动动画，前提还要同时满足 **itemHorizontalTranslationEnabled = false** 
+<li><p>要想彻底关闭水平滑动动画，前提还要同时满足 <strong>itemHorizontalTranslationEnabled = false</strong> </p>
+<pre><code>//...
+protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    int width = MeasureSpec.getSize(widthMeasureSpec);
+       int visibleCount = this.menu.getVisibleItems().size();
+       int totalCount = this.getChildCount();
+       int heightSpec = MeasureSpec.makeMeasureSpec(this.itemHeight, 1073741824);
+       int totalWidth;
+       int i;
+       int extra;
+       int i;
+    // 两个条件都不满足才能禁止水平动画
+    if (this.isShifting(this.labelVisibilityMode, visibleCount) &amp;&amp; this.itemHorizontalTranslationEnabled) {
+        View activeChild = this.getChildAt(this.selectedItemPosition);
+           i = this.activeItemMinWidth;
+           if (activeChild.getVisibility() != 8) {
+               activeChild.measure(MeasureSpec.makeMeasureSpec(this.activeItemMaxWidth, -2147483648), heightSpec);
+               i = Math.max(i, activeChild.getMeasuredWidth());
+           }
+        //...                    
+    ｝
+｝    
+//...
+</code></pre></li>
+<li><p><strong>BottomNavigationItemView</strong> 中对 <strong>labelVisibilityMode</strong> 也做了对应处理</p>
+<pre><code>//...            
+// labelVisibilityMode=&quot;auto&quot;时，值为-1
+// labelVisibilityMode=&quot;selected&quot;时，值为0
+// labelVisibilityMode=&quot;labeled&quot;时，值为1
+// labelVisibilityMode=&quot;unlabeled&quot;时，值为2
 
-        //...
-        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-            int width = MeasureSpec.getSize(widthMeasureSpec);
-               int visibleCount = this.menu.getVisibleItems().size();
-               int totalCount = this.getChildCount();
-               int heightSpec = MeasureSpec.makeMeasureSpec(this.itemHeight, 1073741824);
-               int totalWidth;
-               int i;
-               int extra;
-               int i;
-            // 两个条件都不满足才能禁止水平动画
-            if (this.isShifting(this.labelVisibilityMode, visibleCount) &amp;&amp; this.itemHorizontalTranslationEnabled) {
-                View activeChild = this.getChildAt(this.selectedItemPosition);
-                   i = this.activeItemMinWidth;
-                   if (activeChild.getVisibility() != 8) {
-                       activeChild.measure(MeasureSpec.makeMeasureSpec(this.activeItemMaxWidth, -2147483648), heightSpec);
-                       i = Math.max(i, activeChild.getMeasuredWidth());
-                   }
-                //...                    
-            ｝
-        ｝    
-        //...
-
-- **BottomNavigationItemView** 中对 **labelVisibilityMode** 也做了对应处理
-
-        //...            
-        // labelVisibilityMode=&quot;auto&quot;时，值为-1
-        // labelVisibilityMode=&quot;selected&quot;时，值为0
-        // labelVisibilityMode=&quot;labeled&quot;时，值为1
-        // labelVisibilityMode=&quot;unlabeled&quot;时，值为2
-
-        public void setChecked(boolean checked) {
-            this.largeLabel.setPivotX((float)(this.largeLabel.getWidth() / 2));
-            this.largeLabel.setPivotY((float)this.largeLabel.getBaseline());
-            this.smallLabel.setPivotX((float)(this.smallLabel.getWidth() / 2));
-            this.smallLabel.setPivotY((float)this.smallLabel.getBaseline());
-            switch(this.labelVisibilityMode) {
-                case -1:
-                    if (this.isShifting) {
-                        if (checked) {
-                            this.setViewLayoutParams(this.icon, this.defaultMargin, 49);
-                            this.setViewValues(this.largeLabel, 1.0F, 1.0F, 0);
-                        } else {
-                            this.setViewLayoutParams(this.icon, this.defaultMargin, 17);
-                            this.setViewValues(this.largeLabel, 0.5F, 0.5F, 4);
-                        }
-
-                        this.smallLabel.setVisibility(4);
-                    } else if (checked) {
-                        this.setViewLayoutParams(this.icon, (int)((float)this.defaultMargin + this.shiftAmount), 49);
-                        this.setViewValues(this.largeLabel, 1.0F, 1.0F, 0);
-                        this.setViewValues(this.smallLabel, this.scaleUpFactor, this.scaleUpFactor, 4);
-                    } else {
-                        this.setViewLayoutParams(this.icon, this.defaultMargin, 49);
-                        this.setViewValues(this.largeLabel, this.scaleDownFactor, this.scaleDownFactor, 4);
-                        this.setViewValues(this.smallLabel, 1.0F, 1.0F, 0);
-                    }
-                    break;
-                case 0:
-                    if (checked) {
-                        this.setViewLayoutParams(this.icon, this.defaultMargin, 49);
-                        this.setViewValues(this.largeLabel, 1.0F, 1.0F, 0);
-                    } else {
-                        this.setViewLayoutParams(this.icon, this.defaultMargin, 17);
-                        this.setViewValues(this.largeLabel, 0.5F, 0.5F, 4);
-                    }
-
-                    this.smallLabel.setVisibility(4);
-                    break;
-                case 1:
-                    if (checked) {
-                        this.setViewLayoutParams(this.icon, (int)((float)this.defaultMargin + this.shiftAmount), 49);
-                        this.setViewValues(this.largeLabel, 1.0F, 1.0F, 0);
-                        this.setViewValues(this.smallLabel, this.scaleUpFactor, this.scaleUpFactor, 4);
-                    } else {
-                        this.setViewLayoutParams(this.icon, this.defaultMargin, 49);
-                        this.setViewValues(this.largeLabel, this.scaleDownFactor, this.scaleDownFactor, 4);
-                        this.setViewValues(this.smallLabel, 1.0F, 1.0F, 0);
-                    }
-                    break;
-                case 2:
+public void setChecked(boolean checked) {
+    this.largeLabel.setPivotX((float)(this.largeLabel.getWidth() / 2));
+    this.largeLabel.setPivotY((float)this.largeLabel.getBaseline());
+    this.smallLabel.setPivotX((float)(this.smallLabel.getWidth() / 2));
+    this.smallLabel.setPivotY((float)this.smallLabel.getBaseline());
+    switch(this.labelVisibilityMode) {
+        case -1:
+            if (this.isShifting) {
+                if (checked) {
+                    this.setViewLayoutParams(this.icon, this.defaultMargin, 49);
+                    this.setViewValues(this.largeLabel, 1.0F, 1.0F, 0);
+                } else {
                     this.setViewLayoutParams(this.icon, this.defaultMargin, 17);
-                    this.largeLabel.setVisibility(8);
-                    this.smallLabel.setVisibility(8);
+                    this.setViewValues(this.largeLabel, 0.5F, 0.5F, 4);
+                }
+
+                this.smallLabel.setVisibility(4);
+            } else if (checked) {
+                this.setViewLayoutParams(this.icon, (int)((float)this.defaultMargin + this.shiftAmount), 49);
+                this.setViewValues(this.largeLabel, 1.0F, 1.0F, 0);
+                this.setViewValues(this.smallLabel, this.scaleUpFactor, this.scaleUpFactor, 4);
+            } else {
+                this.setViewLayoutParams(this.icon, this.defaultMargin, 49);
+                this.setViewValues(this.largeLabel, this.scaleDownFactor, this.scaleDownFactor, 4);
+                this.setViewValues(this.smallLabel, 1.0F, 1.0F, 0);
+            }
+            break;
+        case 0:
+            if (checked) {
+                this.setViewLayoutParams(this.icon, this.defaultMargin, 49);
+                this.setViewValues(this.largeLabel, 1.0F, 1.0F, 0);
+            } else {
+                this.setViewLayoutParams(this.icon, this.defaultMargin, 17);
+                this.setViewValues(this.largeLabel, 0.5F, 0.5F, 4);
             }
 
-                this.refreshDrawableState();
-                this.setSelected(checked);
-        }
-        //...
-</code></pre><ul>
+            this.smallLabel.setVisibility(4);
+            break;
+        case 1:
+            if (checked) {
+                this.setViewLayoutParams(this.icon, (int)((float)this.defaultMargin + this.shiftAmount), 49);
+                this.setViewValues(this.largeLabel, 1.0F, 1.0F, 0);
+                this.setViewValues(this.smallLabel, this.scaleUpFactor, this.scaleUpFactor, 4);
+            } else {
+                this.setViewLayoutParams(this.icon, this.defaultMargin, 49);
+                this.setViewValues(this.largeLabel, this.scaleDownFactor, this.scaleDownFactor, 4);
+                this.setViewValues(this.smallLabel, 1.0F, 1.0F, 0);
+            }
+            break;
+        case 2:
+            this.setViewLayoutParams(this.icon, this.defaultMargin, 17);
+            this.largeLabel.setVisibility(8);
+            this.smallLabel.setVisibility(8);
+    }
+
+        this.refreshDrawableState();
+        this.setSelected(checked);
+}
+//...
+</code></pre></li>
+</ul>
+</li>
 <li><p>最终，在新版的 <strong>Android Design</strong> 中使用 <strong>BottomNavigationView</strong> 只用在布局文件中添加两个属性就可以达到上图中的效果</p>
 <ul>
 <li>app:itemHorizontalTranslationEnabled=”false”</li>
@@ -949,7 +946,7 @@ BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
   <p><span>本文标题:</span><a href="/2018/09/27/BottomNavigationView最新使用/">BottomNavigationView最新用法</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Cazaea 的个人博客">Cazaea</a></p>
   <p><span>发布时间:</span>2018年09月27日 - 15:09</p>
-  <p><span>最后更新:</span>2018年09月28日 - 13:09</p>
+  <p><span>最后更新:</span>2018年09月28日 - 14:09</p>
   <p><span>原始链接:</span><a href="/2018/09/27/BottomNavigationView最新使用/" title="BottomNavigationView最新用法">https://cazaea.com/2018/09/27/BottomNavigationView最新使用/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://cazaea.com/2018/09/27/BottomNavigationView最新使用/"  aria-label="复制成功！"></i></span>
   </p>
