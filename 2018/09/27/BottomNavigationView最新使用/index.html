@@ -145,7 +145,7 @@
 <meta property="og:image" content="https://i.imgur.com/kAhZUbj.jpg">
 <meta property="og:image" content="https://i.imgur.com/5SJl8mM.jpg">
 <meta property="og:image" content="https://i.imgur.com/IHWckaX.jpg">
-<meta property="og:updated_time" content="2018-09-27T09:53:14.174Z">
+<meta property="og:updated_time" content="2018-09-28T05:59:24.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BottomNavigationView最新用法">
 <meta name="twitter:description" content="BottomNavigationView最新用法 Android中使用BottomNavigationView早已不稀奇，之前其他博客也都介绍的有用法。 但是，现在网上所出现的使用方法已不符合当今需要  方法一 (com.android.support:design 版本不高于 27.0.3) 网上一堆 方法二 (com.android.support:design 版本高于 27.0.3) 网上">
@@ -417,7 +417,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,990
+                  1,992
                 </span>
               
 
@@ -607,9 +607,8 @@ BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
 &lt;/selector&gt;
 </code></pre></li>
-</ul>
-<ul>
-<li>效果如图：</li>
+<li><p>效果如图：</p>
+</li>
 </ul>
 <p><img src="https://i.imgur.com/WqWZH09.gif" alt=""></p>
 <hr>
@@ -618,188 +617,190 @@ BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 <li>此方法仅针对 <strong>Gradle</strong> 文件引用 <strong>com.android.support:design</strong> 版本高于 <strong>27.0.3</strong></li>
 </ul>
 <h3 id="首先看一下源码"><a href="#首先看一下源码" class="headerlink" title="首先看一下源码"></a>首先看一下源码</h3><ul>
-<li>当 <strong>com.android.support:design &lt;= 27.0.3</strong> 时</li>
-</ul>
-<pre><code>- **BottomNavigationMenuView** 中源码
+<li><p>当 <strong>com.android.support:design &lt;= 27.0.3</strong> 时</p>
+<ul>
+<li><p><strong>BottomNavigationMenuView</strong> 中源码</p>
+<pre><code>public class BottomNavigationMenuView extends ViewGroup implements MenuView {
 
-        public class BottomNavigationMenuView extends ViewGroup implements MenuView {
+    // ...
+    // 就是这个属性
+    private boolean mShiftingMode = true;
+    // ...
 
-            // ...
-            // 就是这个属性
-            private boolean mShiftingMode = true;
-            // ...
-
-            public void buildMenuView() {
-                //...
-                mButtons = new BottomNavigationItemView[mMenu.size()];
-                // 为什么item大于3的时候，会有缩放
-                mShiftingMode = mMenu.size() &gt; 3;
-                for (int i = 0; i &lt; mMenu.size(); i++) {
-                    BottomNavigationItemView child = getNewItem();
-                    child.setShiftingMode(mShiftingMode);
-                    //...            
-                }
-            } 
-        }    
-
-- **BottomNavigationItemView** 中源码
-
-        public class BottomNavigationItemView extends FrameLayout implements MenuView.ItemView {
-            private final int mShiftAmount;
-            private final float mScaleUpFactor;
-            private final float mScaleDownFactor;
-
-            private boolean mShiftingMode;
-            public BottomNavigationItemView(Context context, AttributeSet attrs, int defStyleAttr) {
-                super(context, attrs, defStyleAttr);
-                final Resources res = getResources();
-                int inactiveLabelSize = res.getDimensionPixelSize(R.dimen.design_bottom_navigation_text_size);
-                  int activeLabelSize = res.getDimensionPixelSize( R.dimen.design_bottom_navigation_active_text_size);
-                mDefaultMargin = res.getDimensionPixelSize(R.dimen.design_bottom_navigation_margin);
-                mShiftAmount = inactiveLabelSize - activeLabelSize;
-                mScaleUpFactor = 1f * activeLabelSize / inactiveLabelSize;
-                mScaleDownFactor = 1f * inactiveLabelSize / activeLabelSize;
-
-                LayoutInflater.from(context).inflate(R.layout.design_bottom_navigation_item, this, true);
-                setBackgroundResource(R.drawable.design_bottom_navigation_item_background);
-                mIcon = findViewById(R.id.icon);
-                mSmallLabel = findViewById(R.id.smallLabel);
-                mLargeLabel = findViewById(R.id.largeLabel);
-            }
-
-            @Override
-            public void setChecked(boolean checked) {
-
-                if (mShiftingMode) {
-                    if (checked) {
-                        LayoutParams iconParams = (LayoutParams) mIcon.getLayoutParams();
-                        iconParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
-                        iconParams.topMargin = mDefaultMargin;
-                        mIcon.setLayoutParams(iconParams);
-                        mLargeLabel.setVisibility(VISIBLE);
-                        mLargeLabel.setScaleX(1f);
-                        mLargeLabel.setScaleY(1f);
-                    } else {
-                        LayoutParams iconParams = (LayoutParams) mIcon.getLayoutParams();
-                        iconParams.gravity = Gravity.CENTER;
-                        iconParams.topMargin = mDefaultMargin;
-                        mIcon.setLayoutParams(iconParams);
-                        //ShiftingMode模式下，不选中文字隐藏
-                        mLargeLabel.setVisibility(INVISIBLE);
-                        mLargeLabel.setScaleX(0.5f);
-                        mLargeLabel.setScaleY(0.5f);
-                    }
-                    mSmallLabel.setVisibility(INVISIBLE);
-                } else {
-
-                    if (checked) {
-                        LayoutParams iconParams = (LayoutParams) mIcon.getLayoutParams();
-                        iconParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
-                        //通过设置mShiftAmount 的大小 控制图片margin，进而控制图片大小
-                        iconParams.topMargin = mDefaultMargin + mShiftAmount;
-                        mIcon.setLayoutParams(iconParams);
-                        //通过设置mLargeLabel和mSmallLabel的显示与隐藏控制文本大小
-                        //如果把他俩TextSize设置为一样。则就不会变化
-                        mLargeLabel.setVisibility(VISIBLE);
-                        mSmallLabel.setVisibility(INVISIBLE);
-
-                        mLargeLabel.setScaleX(1f);
-                        mLargeLabel.setScaleY(1f);
-                        mSmallLabel.setScaleX(mScaleUpFactor);
-                        mSmallLabel.setScaleY(mScaleUpFactor);
-                    } else {
-                        LayoutParams iconParams = (LayoutParams) mIcon.getLayoutParams();
-                        iconParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
-                        iconParams.topMargin = mDefaultMargin;
-                        mIcon.setLayoutParams(iconParams);
-                        mLargeLabel.setVisibility(INVISIBLE);
-                        mSmallLabel.setVisibility(VISIBLE);
-
-                        mLargeLabel.setScaleX(mScaleDownFactor);
-                        mLargeLabel.setScaleY(mScaleDownFactor);
-                        mSmallLabel.setScaleX(1f);
-                        mSmallLabel.setScaleY(1f);
-                    }
-                }
-
-                refreshDrawableState();
-            } 
+    public void buildMenuView() {
+        //...
+        mButtons = new BottomNavigationItemView[mMenu.size()];
+        // 为什么item大于3的时候，会有缩放
+        mShiftingMode = mMenu.size() &gt; 3;
+        for (int i = 0; i &lt; mMenu.size(); i++) {
+            BottomNavigationItemView child = getNewItem();
+            child.setShiftingMode(mShiftingMode);
+            //...            
         }
-</code></pre><ul>
+    } 
+}    
+</code></pre></li>
+<li><p><strong>BottomNavigationItemView</strong> 中源码</p>
+<pre><code>public class BottomNavigationItemView extends FrameLayout implements MenuView.ItemView {
+    private final int mShiftAmount;
+    private final float mScaleUpFactor;
+    private final float mScaleDownFactor;
+
+    private boolean mShiftingMode;
+    public BottomNavigationItemView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        final Resources res = getResources();
+        int inactiveLabelSize = res.getDimensionPixelSize(R.dimen.design_bottom_navigation_text_size);
+          int activeLabelSize = res.getDimensionPixelSize( R.dimen.design_bottom_navigation_active_text_size);
+        mDefaultMargin = res.getDimensionPixelSize(R.dimen.design_bottom_navigation_margin);
+        mShiftAmount = inactiveLabelSize - activeLabelSize;
+        mScaleUpFactor = 1f * activeLabelSize / inactiveLabelSize;
+        mScaleDownFactor = 1f * inactiveLabelSize / activeLabelSize;
+
+        LayoutInflater.from(context).inflate(R.layout.design_bottom_navigation_item, this, true);
+        setBackgroundResource(R.drawable.design_bottom_navigation_item_background);
+        mIcon = findViewById(R.id.icon);
+        mSmallLabel = findViewById(R.id.smallLabel);
+        mLargeLabel = findViewById(R.id.largeLabel);
+    }
+
+    @Override
+    public void setChecked(boolean checked) {
+
+        if (mShiftingMode) {
+            if (checked) {
+                LayoutParams iconParams = (LayoutParams) mIcon.getLayoutParams();
+                iconParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
+                iconParams.topMargin = mDefaultMargin;
+                mIcon.setLayoutParams(iconParams);
+                mLargeLabel.setVisibility(VISIBLE);
+                mLargeLabel.setScaleX(1f);
+                mLargeLabel.setScaleY(1f);
+            } else {
+                LayoutParams iconParams = (LayoutParams) mIcon.getLayoutParams();
+                iconParams.gravity = Gravity.CENTER;
+                iconParams.topMargin = mDefaultMargin;
+                mIcon.setLayoutParams(iconParams);
+                // ShiftingMode模式下，不选中文字隐藏
+                mLargeLabel.setVisibility(INVISIBLE);
+                mLargeLabel.setScaleX(0.5f);
+                mLargeLabel.setScaleY(0.5f);
+            }
+            mSmallLabel.setVisibility(INVISIBLE);
+        } else {
+
+            if (checked) {
+                LayoutParams iconParams = (LayoutParams) mIcon.getLayoutParams();
+                iconParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
+                // 通过设置mShiftAmount 的大小 控制图片margin，进而控制图片大小
+                iconParams.topMargin = mDefaultMargin + mShiftAmount;
+                mIcon.setLayoutParams(iconParams);
+                // 通过设置mLargeLabel和mSmallLabel的显示与隐藏控制文本大小
+                // 如果把他俩TextSize设置为一样。则就不会变化
+                mLargeLabel.setVisibility(VISIBLE);
+                mSmallLabel.setVisibility(INVISIBLE);
+
+                mLargeLabel.setScaleX(1f);
+                mLargeLabel.setScaleY(1f);
+                mSmallLabel.setScaleX(mScaleUpFactor);
+                mSmallLabel.setScaleY(mScaleUpFactor);
+            } else {
+                LayoutParams iconParams = (LayoutParams) mIcon.getLayoutParams();
+                iconParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
+                iconParams.topMargin = mDefaultMargin;
+                mIcon.setLayoutParams(iconParams);
+                mLargeLabel.setVisibility(INVISIBLE);
+                mSmallLabel.setVisibility(VISIBLE);
+
+                mLargeLabel.setScaleX(mScaleDownFactor);
+                mLargeLabel.setScaleY(mScaleDownFactor);
+                mSmallLabel.setScaleX(1f);
+                mSmallLabel.setScaleY(1f);
+            }
+        }
+
+        refreshDrawableState();
+    } 
+}
+</code></pre></li>
+</ul>
+</li>
 <li><p>当 <strong>com.android.support:design &gt; 27.0.3</strong> 时</p>
 <ul>
-<li><strong>BottomNavigationMenuView</strong> 中源码</li>
+<li><p><strong>BottomNavigationMenuView</strong> 中源码</p>
+<pre><code>public class BottomNavigationMenuView extends ViewGroup implements MenuView {
+
+    // ...
+    // mShiftingMode属性消失，取而代之的是这两个属性
+
+    // itemHorizontalTranslationEnabled:是否启用水平移动动画（如果允许图标会有少许水平移动）
+       private boolean itemHorizontalTranslationEnabled;
+    // labelVisibilityMode:标签显示模式（labeled:显示标签，auto:根据标签个数判断是否显示，selected:选中的显示，unlabeled:不显示）
+    private int labelVisibilityMode;
+
+    // ...
+    public void buildMenuView() {
+        //...
+        if (this.menu.size() == 0) {
+            this.selectedItemId = 0;
+            this.selectedItemPosition = 0;
+            this.buttons = null;
+        } else {
+            this.buttons = new BottomNavigationItemView[this.menu.size()];
+            boolean shifting = this.isShifting(this.labelVisibilityMode, this.menu.getVisibleItems().size());
+
+            for(i = 0; i &lt; this.menu.size(); ++i) {
+                this.presenter.setUpdateSuspended(true);
+                this.menu.getItem(i).setCheckable(true);
+                this.presenter.setUpdateSuspended(false);
+                BottomNavigationItemView child = this.getNewItem();
+                //...            
+            }
+    } 
+
+    //...
+    private boolean isShifting(int labelVisibilityMode, int childCount) {
+        // 这个地方很奇怪，看了BottomNavigationItem中对labelVisibilityMode做了对应处理才明白
+        // 默认labelVisibilityMode为&quot;auto&quot;,也就是&quot;-1&quot;,如果Item&gt;3默认开启水平动画，否则关闭水平动画。
+        // 如果labelVisibilityMode用户主动设置了值，且不为&quot;auto&quot;，只在&quot;selected&quot;模式下开启动画
+        // &quot;labeled&quot;和&quot;unlabeled&quot;两种模式都不开启动画
+        return labelVisibilityMode == -1 ? childCount &gt; 3 : labelVisibilityMode == 0;
+    }
+    //...
+
+}
+</code></pre></li>
 </ul>
 </li>
 </ul>
-<pre><code>        public class BottomNavigationMenuView extends ViewGroup implements MenuView {
+<pre><code>- 要想彻底关闭水平滑动动画，前提还要同时满足 **itemHorizontalTranslationEnabled = false** 
 
-            // ...
-            // mShiftingMode属性消失，取而代之的是这两个属性
-
-            // itemHorizontalTranslationEnabled:是否启用水平移动动画（如果允许图标会有少许水平移动）
-               private boolean itemHorizontalTranslationEnabled;
-            // labelVisibilityMode:标签显示模式（labeled:显示标签，auto:根据标签个数判断是否显示，selected:选中的显示，unlabeled:不显示）
-            private int labelVisibilityMode;
-            // ...
-
-            public void buildMenuView() {
-                //...
-                if (this.menu.size() == 0) {
-                    this.selectedItemId = 0;
-                    this.selectedItemPosition = 0;
-                    this.buttons = null;
-                } else {
-                    this.buttons = new BottomNavigationItemView[this.menu.size()];
-                    boolean shifting = this.isShifting(this.labelVisibilityMode, this.menu.getVisibleItems().size());
-
-                    for(i = 0; i &lt; this.menu.size(); ++i) {
-                        this.presenter.setUpdateSuspended(true);
-                        this.menu.getItem(i).setCheckable(true);
-                        this.presenter.setUpdateSuspended(false);
-                        BottomNavigationItemView child = this.getNewItem();
-                        //...            
-                    }
-            } 
-
-            //...
-            private boolean isShifting(int labelVisibilityMode, int childCount) {
-                // 这个地方很奇怪，看了BottomNavigationItem中对labelVisibilityMode做了对应处理才明白
-                // 默认labelVisibilityMode为&quot;auto&quot;,也就是&quot;-1&quot;,如果Item&gt;3默认开启水平动画，否则关闭水平动画。
-                // 如果labelVisibilityMode用户主动设置了值，且不为&quot;auto&quot;，只在&quot;selected&quot;模式下开启动画
-                // &quot;labeled&quot;和&quot;unlabeled&quot;两种模式都不开启动画
-                return labelVisibilityMode == -1 ? childCount &gt; 3 : labelVisibilityMode == 0;
-            }
-        }
-
-
-    - 要想彻底关闭水平滑动动画，前提还要同时满足 **itemHorizontalTranslationEnabled = false** 
-
-            protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-                int width = MeasureSpec.getSize(widthMeasureSpec);
-                int visibleCount = this.menu.getVisibleItems().size();
-                int totalCount = this.getChildCount();
-                int heightSpec = MeasureSpec.makeMeasureSpec(this.itemHeight, 1073741824);
-                int totalWidth;
-                int i;
-                int extra;
-                int i;
-                // 两个条件都不满足才能禁止动画
-                if (this.isShifting(this.labelVisibilityMode, visibleCount) &amp;&amp; this.itemHorizontalTranslationEnabled) {
-                    View activeChild = this.getChildAt(this.selectedItemPosition);
-                    i = this.activeItemMinWidth;
-                    if (activeChild.getVisibility() != 8) {
-                        activeChild.measure(MeasureSpec.makeMeasureSpec(this.activeItemMaxWidth, -2147483648), heightSpec);
-                        i = Math.max(i, activeChild.getMeasuredWidth());
-                    }
-                    //...
-                ｝
-            ｝    
+        //...
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+            int width = MeasureSpec.getSize(widthMeasureSpec);
+               int visibleCount = this.menu.getVisibleItems().size();
+               int totalCount = this.getChildCount();
+               int heightSpec = MeasureSpec.makeMeasureSpec(this.itemHeight, 1073741824);
+               int totalWidth;
+               int i;
+               int extra;
+               int i;
+            // 两个条件都不满足才能禁止水平动画
+            if (this.isShifting(this.labelVisibilityMode, visibleCount) &amp;&amp; this.itemHorizontalTranslationEnabled) {
+                View activeChild = this.getChildAt(this.selectedItemPosition);
+                   i = this.activeItemMinWidth;
+                   if (activeChild.getVisibility() != 8) {
+                       activeChild.measure(MeasureSpec.makeMeasureSpec(this.activeItemMaxWidth, -2147483648), heightSpec);
+                       i = Math.max(i, activeChild.getMeasuredWidth());
+                   }
+                //...                    
+            ｝
+        ｝    
+        //...
 
 - **BottomNavigationItemView** 中对 **labelVisibilityMode** 也做了对应处理
 
-        //...
-
+        //...            
         // labelVisibilityMode=&quot;auto&quot;时，值为-1
         // labelVisibilityMode=&quot;selected&quot;时，值为0
         // labelVisibilityMode=&quot;labeled&quot;时，值为1
@@ -948,7 +949,7 @@ BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
   <p><span>本文标题:</span><a href="/2018/09/27/BottomNavigationView最新使用/">BottomNavigationView最新用法</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Cazaea 的个人博客">Cazaea</a></p>
   <p><span>发布时间:</span>2018年09月27日 - 15:09</p>
-  <p><span>最后更新:</span>2018年09月27日 - 17:09</p>
+  <p><span>最后更新:</span>2018年09月28日 - 13:09</p>
   <p><span>原始链接:</span><a href="/2018/09/27/BottomNavigationView最新使用/" title="BottomNavigationView最新用法">https://cazaea.com/2018/09/27/BottomNavigationView最新使用/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://cazaea.com/2018/09/27/BottomNavigationView最新使用/"  aria-label="复制成功！"></i></span>
   </p>
