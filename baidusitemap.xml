@@ -4,62 +4,8 @@
 
     
   <url>
-    <loc>https://cazaea.com/2018/10/26/%E5%B2%98%E6%B8%AF5%E5%A4%A94%E5%A4%9C%E6%B8%B8/</loc>
-    <lastmod>2018-10-26T07:46:07.484Z</lastmod>
-    <data>
-        <display>
-        <title>岘港5天4夜游</title>
-        <pubTime>2018-10-26T06:44:37.480Z</pubTime>
-        
-        <tag>DANANG</tag>
-         
-        <tag>公司团建</tag>
-         
-        <tag>境外旅游</tag>
-         
-        <tag>越南</tag>
-         
-         
-           
-             
-              <breadCrumb title="旅游" url="https://cazaea.com/categories/%E6%97%85%E6%B8%B8/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://cazaea.com/2018/09/27/BottomNavigationView%E6%9C%80%E6%96%B0%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2018-09-28T06:09:41.219Z</lastmod>
-    <data>
-        <display>
-        <title>BottomNavigationView最新用法</title>
-        <pubTime>2018-09-27T07:41:04.054Z</pubTime>
-        
-        <tag>BottomNavigationView</tag>
-         
-        <tag>Android Studio V3.2</tag>
-         
-        <tag>Gradle4.6</tag>
-         
-        <tag>Android Design 28.0.2</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="https://cazaea.com/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-    
-    
-  <url>
     <loc>https://cazaea.com/2018/09/08/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
-    <lastmod>2018-09-03T10:11:25.345Z</lastmod>
+    <lastmod>2018-11-12T03:31:34.419Z</lastmod>
     <data>
         <display>
         <title>最新、最全Hexo博客搭建方法</title>
@@ -84,8 +30,34 @@
 
     
   <url>
+    <loc>https://cazaea.com/2018/09/27/BottomNavigationView%E6%9C%80%E6%96%B0%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2018-11-12T03:31:33.219Z</lastmod>
+    <data>
+        <display>
+        <title>BottomNavigationView最新用法</title>
+        <pubTime>2018-09-27T07:41:04.054Z</pubTime>
+        
+        <tag>BottomNavigationView</tag>
+         
+        <tag>Android Studio V3.2</tag>
+         
+        <tag>Gradle4.6</tag>
+         
+        <tag>Android Design 28.0.2</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="https://cazaea.com/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://cazaea.com/2018/09/08/SweetAlertDialog/</loc>
-    <lastmod>2018-01-12T06:23:05.829Z</lastmod>
+    <lastmod>2018-11-12T03:31:15.547Z</lastmod>
     <data>
         <display>
         <title>SweetAlertDialog Android Studio3.0 Gradle4.1报错处理</title>
@@ -108,6 +80,34 @@
     </data>
     </url>
 
+    
+  <url>
+    <loc>https://cazaea.com/2018/10/26/%E5%B2%98%E6%B8%AF5%E5%A4%A94%E5%A4%9C%E6%B8%B8/</loc>
+    <lastmod>2018-11-12T03:30:31.318Z</lastmod>
+    <data>
+        <display>
+        <title>岘港5天4夜游</title>
+        <pubTime>2018-10-26T06:44:37.480Z</pubTime>
+        
+        <tag>DANANG</tag>
+         
+        <tag>公司团建</tag>
+         
+        <tag>境外旅游</tag>
+         
+        <tag>越南</tag>
+         
+         
+           
+             
+              <breadCrumb title="旅游" url="https://cazaea.com/categories/%E6%97%85%E6%B8%B8/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
     
     
     
