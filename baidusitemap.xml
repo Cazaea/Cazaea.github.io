@@ -4,34 +4,8 @@
 
     
   <url>
-    <loc>https://cazaea.com/2018/09/08/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
-    <lastmod>2018-11-12T03:31:34.419Z</lastmod>
-    <data>
-        <display>
-        <title>最新、最全Hexo博客搭建方法</title>
-        <pubTime>2018-09-08T08:27:47.781Z</pubTime>
-        
-        <tag>Hexo</tag>
-         
-        <tag>博客</tag>
-         
-        <tag>Sitemap</tag>
-         
-        <tag>Google</tag>
-         
-         
-           
-             
-              <breadCrumb title="博客搭建" url="https://cazaea.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://cazaea.com/2018/09/27/BottomNavigationView%E6%9C%80%E6%96%B0%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2018-11-12T03:31:33.219Z</lastmod>
+    <lastmod>2018-11-12T03:36:21.062Z</lastmod>
     <data>
         <display>
         <title>BottomNavigationView最新用法</title>
@@ -56,8 +30,34 @@
 
     
   <url>
+    <loc>https://cazaea.com/2018/09/08/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2018-11-12T03:36:11.306Z</lastmod>
+    <data>
+        <display>
+        <title>最新、最全Hexo博客搭建方法</title>
+        <pubTime>2018-09-08T08:27:47.781Z</pubTime>
+        
+        <tag>Hexo</tag>
+         
+        <tag>博客</tag>
+         
+        <tag>Sitemap</tag>
+         
+        <tag>Google</tag>
+         
+         
+           
+             
+              <breadCrumb title="博客搭建" url="https://cazaea.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://cazaea.com/2018/09/08/SweetAlertDialog/</loc>
-    <lastmod>2018-11-12T03:31:15.547Z</lastmod>
+    <lastmod>2018-11-12T03:36:06.770Z</lastmod>
     <data>
         <display>
         <title>SweetAlertDialog Android Studio3.0 Gradle4.1报错处理</title>
@@ -83,7 +83,7 @@
     
   <url>
     <loc>https://cazaea.com/2018/10/26/%E5%B2%98%E6%B8%AF5%E5%A4%A94%E5%A4%9C%E6%B8%B8/</loc>
-    <lastmod>2018-11-12T03:30:31.318Z</lastmod>
+    <lastmod>2018-11-12T03:36:00.997Z</lastmod>
     <data>
         <display>
         <title>岘港5天4夜游</title>
